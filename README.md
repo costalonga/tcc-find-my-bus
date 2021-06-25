@@ -1,6 +1,4 @@
-# find_my_bus
-
-A new Flutter project.
+# Find My Bus
 
 ![Alt text](arquitetura-app-1.png?raw=true "Arquitetura")
 
