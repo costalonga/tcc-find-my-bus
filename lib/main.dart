@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:find_my_bus/custom_maps.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-// import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() async {
   // To load the .env file contents into dotenv.
@@ -19,26 +19,85 @@ class MyApp extends StatelessWidget {
       // home: MyCustomMap(),
       // home: DumTestClass(),
       home: Scaffold(
-        body: Stack(
-          children: <Widget>[
-            MyCustomMap(),
-            // Positioned(
-            //   top: 10,
-            //   right: 15,
-            //   left: 15,
-            //   child: TextField(
+        body: MyCustomMap()
+        // Stack(      // // MINE:
+        //   children: <Widget>[
+        //     MyCustomMap(),
+        //     Positioned(
+        //       top: 10,
+        //       right: 15,
+        //       left: 15,
+        //       child: TextField(
 
-            //     // controller: currLocationController,  // Listener of text input
-            //     decoration: InputDecoration(
-            //       // border: OutlineInputBorder(),
-            //       border: UnderlineInputBorder(),
-            //       labelText: 'Enter a your current location: (lat, lon)',
-            //       hintText: '-22.915459, -43.208501',
-            //     ),
-            //   ),
-            // )
-          ],
-        )
+        //         // controller: currLocationController,  // Listener of text input
+        //         decoration: InputDecoration(
+        //           // border: OutlineInputBorder(),
+        //           border: UnderlineInputBorder(),
+        //           // labelText: 'Enter a your current location: (lat, lon)',
+        //           labelText: 'Selecione uma linha de ônibus',
+        //           hintText: '410, 315, 461, ...',
+        //           // hintText: '-22.915459, -43.208501',
+        //         ),
+                
+        //       ),
+              
+        //     ),
+        //     Positioned(
+        //       top: 75,
+        //       right: 15,
+        //       left: 15,
+        //       child: Text(
+        //         'Distância: 0.520km | Tempo Estimado: 1min',
+        //         style: const TextStyle(fontWeight: FontWeight.bold),
+        //         // controller: currLocationController,  // Listener of text input
+        //       ),
+              
+        //     )
+        //   ],
+        // )
+
+        // // OTHERS:
+        // Stack(
+          //   children: <Widget>[
+          //     MyCustomMap(),
+          //     Positioned(
+          //       top: 10,
+          //       right: 15,
+          //       left: 15,
+          //       child: Container(
+          //         color: Colors.white,
+          //         child: Row(
+          //           children: <Widget>[
+          //             IconButton(
+          //               splashColor: Colors.grey,
+          //               icon: Icon(Icons.menu),
+          //               onPressed: () {},
+          //             ),
+          //             Expanded(
+          //               child: TextField(
+          //                 cursorColor: Colors.black,
+          //                 keyboardType: TextInputType.text,
+          //                 textInputAction: TextInputAction.go,
+          //                 decoration: InputDecoration(
+          //                     border: InputBorder.none,
+          //                     contentPadding:
+          //                         EdgeInsets.symmetric(horizontal: 15),
+          //                     hintText: "Search..."),
+          //               ),
+          //             ),
+          //             Padding(
+          //               padding: const EdgeInsets.only(right: 8.0),
+          //               child: CircleAvatar(
+          //                 backgroundColor: Colors.deepPurple,
+          //                 child: Text('RD'),
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
       )
     );
   }
@@ -55,7 +114,7 @@ class DumTestClass extends StatefulWidget {
 class _DummyState extends State<DumTestClass> {
 
   String _text = "hello";
-  bool _toogle = true;
+  bool toogle = true;
   Position _currentPosition;
 
   @override
@@ -63,19 +122,34 @@ class _DummyState extends State<DumTestClass> {
     return Scaffold(
       body: Column(
         children: <Widget>[
+
+          
           Container(
             padding: EdgeInsets.fromLTRB(15, 50, 0, 30),
             child: Text(
               _text,
             ),
           ),
-          
           Container(
             padding: EdgeInsets.fromLTRB(255, 5, 0, 30),
             child: FloatingActionButton(
               backgroundColor: Theme.of(context).primaryColor,
               foregroundColor: Colors.black,
               onPressed: () => _getCurrentLocation(),
+            ),
+          ),
+
+          toogle == false ? 
+          Container(
+            width: 75.0,
+            height: 75.0,
+            // padding: EdgeInsets.fromLTRB(55, 75, 0, 15),
+            child: RefreshProgressIndicator()
+          ) :
+          Container(
+            padding: EdgeInsets.fromLTRB(45, 75, 0, 15),
+            child: Text(
+              "NOOOOOOOOOOOOOOOOOO",
             ),
           )
         ]
@@ -90,15 +164,14 @@ class _DummyState extends State<DumTestClass> {
     Position pos;
 
     String _textVal;
-    if (_toogle) {
+    if (toogle) {
       _textVal = "hello";
     } else {
       _textVal = "good bye";
     }
-    _toogle = !_toogle;
-
     setState(() {
       _text = _textVal;
+      toogle = !toogle;
     });
     print(_text);
   }
@@ -126,9 +199,11 @@ class _DummyState extends State<DumTestClass> {
     setState(() {
       // _currentPosition = position;
       _text = position.toString();
+      toogle = !toogle;
     });
 
     print(_text);
+    print("Toggle = " + toogle.toString());
   }
 
 }

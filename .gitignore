@@ -48,3 +48,4 @@ app.*.map.json
 
 # Env Files
 /assets/env_vars.env
+/lib/aux_files/
