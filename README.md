@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+![Alt text](arquitetura-app-1.png?raw=true "Arquitetura")
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
